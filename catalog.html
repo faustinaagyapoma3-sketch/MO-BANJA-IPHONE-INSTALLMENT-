@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MO-Banja iPhone Installment | iPhone Catalog</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(90deg, #FFD600 0%, #FFC400 100%);
+            padding: 15px 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #003DA5;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            background: #003DA5;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFD600;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            padding: 8px 16px;
+            background: #003DA5;
+            color: #FFD600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            color: #003DA5;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 16px;
+            color: #666;
+        }
+
+        /* Category */
+        .category {
+            margin-bottom: 50px;
+        }
+
+        .category-title {
+            font-size: 24px;
+            color: #003DA5;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #FFD600;
+        }
+
+        /* Phone Grid */
+        .phones-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .phone-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .phone-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            border-color: #FFD600;
+        }
+
+        .phone-image {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, #FFD600 0%, #003DA5 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            color: white;
+        }
+
+        .phone-info {
+            padding: 20px;
+        }
+
+        .phone-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #003DA5;
+            margin-bottom: 8px;
+        }
+
+        .phone-specs {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 15px;
+        }
+
+        .price-section {
+            background: #f9f9f9;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .price-label {
+            font-size: 11px;
+            color: #666;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #FFD600;
+        }
+
+        .deposit-section {
+            background: #fff3cd;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            font-size: 12px;
+        }
+
+        .deposit-label {
+            color: #666;
+            margin-bottom: 2px;
+        }
+
+        .deposit-amount {
+            font-weight: bold;
+            color: #003DA5;
+            font-size: 16px;
+        }
+
+        .apply-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(90deg, #FFD600 0%, #FFC400 100%);
+            color: #003DA5;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .apply-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(255, 214, 0, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: #003DA5;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+
+        @media (max-width: 768px) {
+            .phones-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+
+<style id="customer-service-buttons-style">
+    .customer-service-buttons {
+        position: fixed;
+        top: 86px;
+        right: 16px;
+        z-index: 1001;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 148px;
+        filter: drop-shadow(0 5px 12px rgba(0, 0, 0, 0.18));
+    }
+    .customer-service-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        min-height: 40px;
+        padding: 9px 12px;
+        border-radius: 999px;
+        color: #fff;
+        font: 700 13px/1.1 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        text-decoration: none;
+        transition: transform .2s ease, filter .2s ease;
+    }
+    .customer-service-button:hover,
+    .customer-service-button:focus-visible {
+        color: #fff;
+        transform: translateX(-3px);
+        filter: brightness(1.08);
+        outline: 3px solid rgba(255, 255, 255, .9);
+        outline-offset: 2px;
+    }
+    .customer-service-button.telegram { background: #229ED9; }
+    .customer-service-button.whatsapp { background: #25D366; }
+    .customer-service-icon { width: 22px; height: 22px; object-fit: cover; border-radius: 50%; flex: 0 0 22px; }
+    @media (max-width: 600px) {
+        .customer-service-buttons {
+            top: 78px;
+            right: 10px;
+            width: auto;
+        }
+        .customer-service-button {
+            width: 42px;
+            height: 42px;
+            min-height: 42px;
+            padding: 0;
+            border-radius: 50%;
+            font-size: 0;
+        }
+        .customer-service-icon { width: 24px; height: 24px; flex-basis: 24px; }
+    }
+</style>
+
+<style id="mo-banja-brand-polish">
+    body {
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+        line-height: 1.5;
+        text-rendering: optimizeLegibility;
+    }
+    button, input, select, textarea { font-family: inherit; }
+    h1, h2, h3 { letter-spacing: -0.025em; line-height: 1.15; }
+    header {
+        padding: 12px clamp(14px, 3vw, 24px) !important;
+        border-bottom: 1px solid rgba(0, 61, 165, 0.10);
+    }
+    .header-container {
+        max-width: 1200px;
+        min-height: 44px;
+        gap: 16px;
+    }
+    .logo {
+        gap: 10px;
+        min-width: 0;
+        font-size: 22px !important;
+        line-height: 1.1;
+    }
+    .logo img {
+        width: 44px !important;
+        height: 44px !important;
+        flex: 0 0 44px;
+        object-fit: contain;
+        background: #fff;
+        border-radius: 8px;
+        padding: 3px;
+        box-shadow: 0 2px 8px rgba(0, 31, 84, 0.12);
+    }
+    .logo span,
+    .logo-main,
+    .logo > div > div:first-child {
+        font-size: clamp(18px, 1.8vw, 22px) !important;
+        font-weight: 750;
+        letter-spacing: -0.03em;
+        line-height: 1.08;
+    }
+    .logo-text, .logo > div { min-width: 0; }
+    .logo-sub, .tagline {
+        display: block;
+        margin-top: 3px;
+        font-size: 11px !important;
+        font-weight: 550;
+        line-height: 1.2;
+        letter-spacing: 0.01em;
+        color: #264a7e;
+    }
+    .header-container > div:last-child:not(.logo) {
+        font-size: 13px !important;
+        font-weight: 650 !important;
+        line-height: 1.25;
+        text-align: right;
+    }
+    .back-btn { font-size: 13px; font-weight: 650; line-height: 1.2; }
+    @media (max-width: 640px) {
+        header { padding: 10px 12px !important; }
+        .header-container { min-height: 38px; gap: 8px; flex-wrap: wrap; }
+        .logo { flex: 1 1 180px; gap: 8px; }
+        .logo img { width: 36px !important; height: 36px !important; flex-basis: 36px; padding: 2px; border-radius: 7px; }
+        .logo span,
+        .logo-main,
+        .logo > div > div:first-child { font-size: clamp(14px, 4vw, 17px) !important; }
+        .logo-sub, .tagline { font-size: 9px !important; margin-top: 2px; }
+        .header-container > div:last-child:not(.logo) { margin-left: auto; max-width: 120px; font-size: 10px !important; }
+        .back-btn { padding: 7px 10px !important; font-size: 12px !important; white-space: nowrap; }
+    }
+</style>
+
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="mobanja-mb-only-20261016.png" alt="MO-BANJA MB logo">
+                <span>MO-Banja iPhone Installment</span>
+            </div>
+            <button class="back-btn" onclick="goBack()">← Back</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="hero">
+            <h1>📱 Available Phones Now</h1>
+            <p>Choose your device and apply for instant loan approval</p>
+        </div>
+
+        <div class="category">
+            <div class="category-title">Choose Your iPhone</div>
+            <div class="phones-grid" id="allPhones"></div>
+        </div>
+    </div>
+
+        <!-- Footer -->
+    <footer>
+        <div style="display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 10px;">
+            <img src="mobanja-mb-only-20261016.png" alt="MO-BANJA MB logo" style="height: 30px; width: auto;">
+            <span style="font-size: 18px; font-weight: bold;">MO-Banja iPhone Installment</span>
+        </div>
+        <p>Get your dream phone today with instant loan approval</p>
+        <p style="margin-top: 10px; font-size: 11px;">© 2026 MO-Banja iPhone Installment. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Prices from the supplied Royal Harrison iPhones price list. Deposits are exactly 40% of each price.
+        const phones = {
+            lowbudget: [
+                { name: 'iPhone XR', specs: '128GB Storage', price: 2100, deposit: 840, image: 'iphone-xr-128gb.jpg' }
+            ],
+            iphone17: [
+                { name: 'iPhone 17 Pro', specs: '256GB/512GB Storage', price: 18300, deposit: 7320, image: 'iphone-17-pro-256gb.jpg' },
+                { name: 'iPhone 17 Pro Max', specs: '256GB/512GB/1TB Storage', price: 20800, deposit: 8320, image: 'iphone-17-pro-max-256gb.jpg' }
+            ],
+            iphone16: [
+                { name: 'iPhone 16', specs: '128GB/256GB Storage', price: 9000, deposit: 3600, image: 'iphone-16-128gb.jpg' },
+                { name: 'iPhone 16 Plus', specs: '128GB/256GB Storage', price: 10000, deposit: 4000, image: 'iphone-16-plus-128gb.jpg' },
+                { name: 'iPhone 16 Pro', specs: '256GB Storage', price: 12400, deposit: 4960, image: 'iphone-16-pro-max-256gb.jpg' },
+                { name: 'iPhone 16 Pro Max', specs: '256GB/512GB Storage', price: 14000, deposit: 5600, image: 'iphone-16-pro-max-256gb.jpg' }
+            ],
+            iphone15: [
+                { name: 'iPhone 15', specs: '128GB/256GB Storage', price: 7000, deposit: 2800, image: 'iphone-15-128gb.jpg' },
+                { name: 'iPhone 15 Plus', specs: '128GB/256GB Storage', price: 7400, deposit: 2960, image: 'iphone-15-plus-128gb.jpg' },
+                { name: 'iPhone 15 Pro', specs: '128GB/256GB Storage', price: 8800, deposit: 3520, image: 'iphone-15-pro-128gb.jpg' },
+                { name: 'iPhone 15 Pro Max', specs: '256GB Storage', price: 11800, deposit: 4720, image: 'iphone-15-pro-max-256gb.jpg' }
+            ],
+            iphone14: [
+                { name: 'iPhone 14', specs: '128GB/256GB Storage', price: 5200, deposit: 2080, image: 'iphone-14-128gb.jpg' },
+                { name: 'iPhone 14 Pro', specs: '128GB/256GB Storage', price: 7200, deposit: 2880, image: 'iphone-14-pro-128gb.jpg' },
+                { name: 'iPhone 14 Pro Max', specs: '128GB/256GB Storage', price: 8000, deposit: 3200, image: 'iphone-14-pro-max-128gb.jpg' }
+            ],
+            iphone13: [
+                { name: 'iPhone 13', specs: '128GB/256GB Storage', price: 4200, deposit: 1680, image: 'iphone-13-128gb.jpg' },
+                { name: 'iPhone 13 Pro', specs: '128GB/256GB Storage', price: 5500, deposit: 2200, image: 'iphone-13-pro-128gb.jpg' },
+                { name: 'iPhone 13 Pro Max', specs: '128GB/256GB Storage', price: 6400, deposit: 2560, image: 'iphone-13-pro-max-128gb.jpg' }
+            ],
+            iphone12: [
+                { name: 'iPhone 12', specs: '64GB/128GB Storage', price: 2950, deposit: 1180, image: 'iphone-12-128gb.jpg' },
+                { name: 'iPhone 12 Pro', specs: '128GB/256GB Storage', price: 3800, deposit: 1520, image: 'iphone-12-pro-128gb.jpg' },
+                { name: 'iPhone 12 Pro Max', specs: '128GB/256GB Storage', price: 4700, deposit: 1880, image: 'iphone-12-pro-max-128gb.jpg' }
+            ],
+            iphone11: [
+                { name: 'iPhone 11', specs: '64GB/128GB Storage', price: 2600, deposit: 1040, image: 'iphone-11-128gb.jpg' },
+                { name: 'iPhone 11 Pro', specs: '64GB/256GB Storage', price: 3200, deposit: 1280, image: 'iphone-11-pro-256gb.jpg' },
+                { name: 'iPhone 11 Pro Max', specs: '64GB/256GB Storage', price: 3400, deposit: 1360, image: 'iphone-11-pro-max-256gb.jpg' }
+            ]
+        };
+
+        function renderPhones(category, containerId) {
+            const container = document.getElementById(containerId);
+            const phoneList = phones[category];
+
+            if (!container || !Array.isArray(phoneList)) {
+                console.warn(`Skipping ${category}: catalog section or phone list is missing.`);
+                return;
+            }
+
+            phoneList.forEach((phone, index) => {
+                console.log(`Rendering ${phone.name} with image: ${phone.image}`);
+                const card = document.createElement('div');
+                card.className = 'phone-card';
+                card.onclick = () => applyForLoan(phone.name, phone.price, phone.deposit);
+
+                // Use specific image if provided, otherwise use default
+                let imagePath = phone.image || 'iphone-16-plus-256gb.jpg';
+
+                card.innerHTML = `
+                    <div class="phone-image">
+                        <img src="${imagePath}" alt="${phone.name}" style="width: 100%; height: 100%; object-fit: cover;" 
+                             onerror="console.error('Failed to load image:', '${imagePath}'); this.onerror=null; this.parentElement.innerHTML='<div style=\'font-size:14px; color:#666; padding:10px; text-align:center;\'>📷 Image Pending:<br>${imagePath}</div>';">
+                    </div>
+                    <div class="phone-info">
+                        <div class="phone-name">${phone.name}</div>
+                        <div class="phone-specs">${phone.specs}</div>
+                        
+                        <div class="price-section">
+                            <div class="price-label">Full Price</div>
+                            <div class="price">GH₵${phone.price.toLocaleString()}</div>
+                        </div>
+
+                        <div class="deposit-section">
+                            <div class="deposit-label">Initial Deposit (40%)</div>
+                            <div class="deposit-amount">GH₵${phone.deposit.toLocaleString()}</div>
+                        </div>
+
+                        <button class="apply-btn">Apply for Loan</button>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        function applyForLoan(phoneName, fullPrice, deposit) {
+            // Save phone info to sessionStorage with all required fields
+            const phoneData = {
+                name: phoneName,
+                fullPrice: fullPrice,
+                price: fullPrice,
+                initialDeposit: deposit,
+                halfPayment: deposit,
+                remainingAmount: fullPrice - deposit
+            };
+            sessionStorage.setItem('selectedPhone', JSON.stringify(phoneData));
+            
+            // Navigate to application form
+            window.location.href = 'application.html';
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+
+        // Render every model into one continuous list from XR through iPhone 17 Pro Max.
+        renderPhones('lowbudget', 'allPhones');
+        renderPhones('iphone11', 'allPhones');
+        renderPhones('iphone12', 'allPhones');
+        renderPhones('iphone13', 'allPhones');
+        renderPhones('iphone14', 'allPhones');
+        renderPhones('iphone15', 'allPhones');
+        renderPhones('iphone16', 'allPhones');
+        renderPhones('iphone17', 'allPhones');
+    </script>
+
+<!-- Customer service links: update the Telegram URL here if your channel username differs. -->
+<div class="customer-service-buttons" aria-label="Customer service">
+    <a class="customer-service-button telegram" href="https://t.me/ilendinstallment" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on Telegram">
+        <img class="customer-service-icon" src="telegram-logo.png" alt=""><span>Telegram</span>
+    </a>
+    <a class="customer-service-button whatsapp" href="https://wa.me/message/3S7ZKZBVKDDAM1" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp">
+        <img class="customer-service-icon" src="whatsapp-logo.png" alt=""><span>WhatsApp</span>
+    </a>
+</div>
+</body>
+</html>

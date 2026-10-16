@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MO-Banja iPhone Installment | Secure Payment</title>
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(90deg, #FFD600 0%, #FFC400 100%);
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #003DA5;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .tagline {
+            font-size: 14px;
+            color: #003DA5;
+            opacity: 0.8;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            padding: 40px;
+            text-align: center;
+        }
+
+        .card h1 {
+            font-size: 28px;
+            color: #003DA5;
+            margin-bottom: 10px;
+        }
+
+        .card-subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            background: #E0E0E0;
+            height: 4px;
+            border-radius: 2px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #FFD600 0%, #003DA5 100%);
+            height: 100%;
+            width: 80%;
+        }
+
+        /* Payment Details Box */
+        .payment-box {
+            background: #f9f9f9;
+            border: 2px solid #E0E0E0;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .payment-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #EEE;
+        }
+
+        .payment-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .label {
+            color: #666;
+            font-weight: 600;
+        }
+
+        .value {
+            color: #003DA5;
+            font-weight: bold;
+        }
+
+        .amount-highlight {
+            font-size: 24px;
+            color: #003DA5;
+            font-weight: 800;
+        }
+
+        /* Paystack Button */
+        .btn-paystack {
+            width: 100%;
+            background: #09A5DB;
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(9, 165, 219, 0.3);
+        }
+
+        .btn-paystack:hover {
+            background: #0894C5;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(9, 165, 219, 0.4);
+        }
+
+        .btn-paystack:active {
+            transform: translateY(0);
+        }
+
+        .paystack-logo {
+            height: 20px;
+        }
+
+        /* Security Badges */
+        .security-badges {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            opacity: 0.6;
+        }
+
+        .badge {
+            font-size: 12px;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Overlay */
+        #loadingOverlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 1000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #003DA5;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+
+<style id="customer-service-buttons-style">
+    .customer-service-buttons {
+        position: fixed;
+        top: 86px;
+        right: 16px;
+        z-index: 1001;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 148px;
+        filter: drop-shadow(0 5px 12px rgba(0, 0, 0, 0.18));
+    }
+    .customer-service-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        min-height: 40px;
+        padding: 9px 12px;
+        border-radius: 999px;
+        color: #fff;
+        font: 700 13px/1.1 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        text-decoration: none;
+        transition: transform .2s ease, filter .2s ease;
+    }
+    .customer-service-button:hover,
+    .customer-service-button:focus-visible {
+        color: #fff;
+        transform: translateX(-3px);
+        filter: brightness(1.08);
+        outline: 3px solid rgba(255, 255, 255, .9);
+        outline-offset: 2px;
+    }
+    .customer-service-button.telegram { background: #229ED9; }
+    .customer-service-button.whatsapp { background: #25D366; }
+    .customer-service-icon { width: 22px; height: 22px; object-fit: cover; border-radius: 50%; flex: 0 0 22px; }
+    @media (max-width: 600px) {
+        .customer-service-buttons {
+            top: 78px;
+            right: 10px;
+            width: auto;
+        }
+        .customer-service-button {
+            width: 42px;
+            height: 42px;
+            min-height: 42px;
+            padding: 0;
+            border-radius: 50%;
+            font-size: 0;
+        }
+        .customer-service-icon { width: 24px; height: 24px; flex-basis: 24px; }
+    }
+</style>
+
+<style id="mo-banja-brand-polish">
+    body {
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+        line-height: 1.5;
+        text-rendering: optimizeLegibility;
+    }
+    button, input, select, textarea { font-family: inherit; }
+    h1, h2, h3 { letter-spacing: -0.025em; line-height: 1.15; }
+    header {
+        padding: 12px clamp(14px, 3vw, 24px) !important;
+        border-bottom: 1px solid rgba(0, 61, 165, 0.10);
+    }
+    .header-container {
+        max-width: 1200px;
+        min-height: 44px;
+        gap: 16px;
+    }
+    .logo {
+        gap: 10px;
+        min-width: 0;
+        font-size: 22px !important;
+        line-height: 1.1;
+    }
+    .logo img {
+        width: 44px !important;
+        height: 44px !important;
+        flex: 0 0 44px;
+        object-fit: contain;
+        background: #fff;
+        border-radius: 8px;
+        padding: 3px;
+        box-shadow: 0 2px 8px rgba(0, 31, 84, 0.12);
+    }
+    .logo span,
+    .logo-main,
+    .logo > div > div:first-child {
+        font-size: clamp(18px, 1.8vw, 22px) !important;
+        font-weight: 750;
+        letter-spacing: -0.03em;
+        line-height: 1.08;
+    }
+    .logo-text, .logo > div { min-width: 0; }
+    .logo-sub, .tagline {
+        display: block;
+        margin-top: 3px;
+        font-size: 11px !important;
+        font-weight: 550;
+        line-height: 1.2;
+        letter-spacing: 0.01em;
+        color: #264a7e;
+    }
+    .header-container > div:last-child:not(.logo) {
+        font-size: 13px !important;
+        font-weight: 650 !important;
+        line-height: 1.25;
+        text-align: right;
+    }
+    .back-btn { font-size: 13px; font-weight: 650; line-height: 1.2; }
+    @media (max-width: 640px) {
+        header { padding: 10px 12px !important; }
+        .header-container { min-height: 38px; gap: 8px; flex-wrap: wrap; }
+        .logo { flex: 1 1 180px; gap: 8px; }
+        .logo img { width: 36px !important; height: 36px !important; flex-basis: 36px; padding: 2px; border-radius: 7px; }
+        .logo span,
+        .logo-main,
+        .logo > div > div:first-child { font-size: clamp(14px, 4vw, 17px) !important; }
+        .logo-sub, .tagline { font-size: 9px !important; margin-top: 2px; }
+        .header-container > div:last-child:not(.logo) { margin-left: auto; max-width: 120px; font-size: 10px !important; }
+        .back-btn { padding: 7px 10px !important; font-size: 12px !important; white-space: nowrap; }
+    }
+</style>
+
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="mobanja-mb-only-20261016.png" alt="MO-BANJA MB logo">
+                <div>
+                    <div style="font-size: 20px;">MO-Banja iPhone Installment</div>
+                    <div class="tagline">Premium iPhone Installments</div>
+                </div>
+            </div>
+            <div style="color: #003DA5; font-weight: bold;">Step 4 of 5</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+
+        <div class="card">
+            <h1>💳 Secure Payment</h1>
+            <p class="card-subtitle">Complete your initial deposit via Paystack to receive your ticket.</p>
+
+            <div class="payment-box">
+                <div class="payment-row">
+                    <span class="label">Device</span>
+                    <span class="value" id="deviceName">Loading...</span>
+                </div>
+                <div class="payment-row">
+                    <span class="label">Full Price</span>
+                    <span class="value" id="fullPrice">Loading...</span>
+                </div>
+                <div class="payment-row">
+                    <span class="label">Initial Deposit</span>
+                    <span class="value amount-highlight" id="depositAmount">Loading...</span>
+                </div>
+                <div class="payment-row">
+                    <span class="label">Customer</span>
+                    <span class="value" id="customerName">Loading...</span>
+                </div>
+            </div>
+
+            <button class="btn-paystack" id="payBtn" onclick="payWithPaystack()">
+                Pay with Paystack
+            </button>
+
+            <div class="security-badges">
+                <div class="badge">🔒 SSL Secure</div>
+                <div class="badge">🛡️ PCI Compliant</div>
+                <div class="badge">💳 Secure Checkout</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="loadingOverlay">
+        <div class="spinner"></div>
+        <p id="loadingText">Processing payment...</p>
+    </div>
+
+    <footer>
+        <p>© 2026 MO-Banja iPhone Installment. Powered by Paystack.</p>
+    </footer>
+
+    <script>
+        // PAYSTACK CONFIGURATION
+        const PAYSTACK_PUBLIC_KEY = 'pk_live_72f5b032d37d0ba8c5aa530e002d18149abb0367'; // User should replace this
+        const TELEGRAM_BOT_TOKEN = '8883385216:AAHtENF8eWmjsAXYn9aNObCu1Kek3Vyu0ak';
+        const TELEGRAM_CHAT_ID = '8889432014';
+
+        let phoneData = {};
+        let appData = {};
+
+        window.onload = function() {
+            phoneData = JSON.parse(sessionStorage.getItem('selectedPhone') || '{}');
+            appData = JSON.parse(sessionStorage.getItem('applicationData') || '{}');
+
+            if (!phoneData.name || !appData.firstName) {
+                alert('Session expired. Please start again.');
+                window.location.href = 'index.html';
+                return;
+            }
+
+            document.getElementById('deviceName').textContent = phoneData.name;
+            document.getElementById('fullPrice').textContent = 'GHS ' + parseFloat(phoneData.fullPrice || 0).toLocaleString();
+            document.getElementById('depositAmount').textContent = 'GHS ' + parseFloat(phoneData.halfPayment || 0).toLocaleString();
+            document.getElementById('customerName').textContent = appData.firstName + ' ' + appData.lastName;
+        };
+
+        function payWithPaystack() {
+            const amount = parseFloat(phoneData.halfPayment || 0) * 100; // Convert to pesewas
+            const email = appData.email || 'customer@example.com';
+            
+            const handler = PaystackPop.setup({
+                key: PAYSTACK_PUBLIC_KEY,
+                email: email,
+                amount: amount,
+                currency: 'GHS',
+                ref: 'MO-BANJA-' + Math.floor((Math.random() * 1000000000) + 1),
+                callback: function(response) {
+                    // Payment successful
+                    document.getElementById('loadingOverlay').style.display = 'flex';
+                    document.getElementById('loadingText').textContent = 'Payment successful! Generating your ticket...';
+                    
+                    // Notify Telegram
+                    sendTelegramNotification(response.reference);
+                    
+                    // Redirect to ticket after 2 seconds
+                    setTimeout(() => {
+                        window.location.href = 'ticket.html';
+                    }, 2000);
+                },
+                onClose: function() {
+                    alert('Transaction was not completed, window closed.');
+                }
+            });
+            handler.openIframe();
+        }
+
+        function sendTelegramNotification(reference) {
+            const msg = `✅ <b>PAYMENT SUCCESSFUL (PAYSTACK)</b>\n` +
+                        `━━━━━━━━━━━━━━━━━━━━\n` +
+                        `👤 <b>Customer:</b> ${appData.firstName} ${appData.lastName}\n` +
+                        `📞 <b>Phone:</b> ${appData.phoneNumber}\n` +
+                        `📧 <b>Email:</b> ${appData.email}\n` +
+                        `📱 <b>Device:</b> ${phoneData.name}\n` +
+                        `💰 <b>Paid:</b> GHS ${phoneData.halfPayment}\n` +
+                        `🔗 <b>Ref:</b> <code>${reference}</code>\n` +
+                        `━━━━━━━━━━━━━━━━━━━━\n` +
+                        `➡️ User has been redirected to Ticket page.`;
+
+            fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: msg,
+                    parse_mode: 'HTML'
+                })
+            });
+        }
+    </script>
+
+<!-- Customer service links: update the Telegram URL here if your channel username differs. -->
+<div class="customer-service-buttons" aria-label="Customer service">
+    <a class="customer-service-button telegram" href="https://t.me/ilendinstallment" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on Telegram">
+        <img class="customer-service-icon" src="telegram-logo.png" alt=""><span>Telegram</span>
+    </a>
+    <a class="customer-service-button whatsapp" href="https://wa.me/message/3S7ZKZBVKDDAM1" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp">
+        <img class="customer-service-icon" src="whatsapp-logo.png" alt=""><span>WhatsApp</span>
+    </a>
+</div>
+</body>
+</html>

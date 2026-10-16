@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MO-Banja iPhone Installment</title>
+    <script>
+        // Redirect to home page
+        window.location.href = 'home.html';
+    </script>
+
+<style id="customer-service-buttons-style">
+    .customer-service-buttons {
+        position: fixed;
+        top: 86px;
+        right: 16px;
+        z-index: 1001;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 148px;
+        filter: drop-shadow(0 5px 12px rgba(0, 0, 0, 0.18));
+    }
+    .customer-service-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        min-height: 40px;
+        padding: 9px 12px;
+        border-radius: 999px;
+        color: #fff;
+        font: 700 13px/1.1 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        text-decoration: none;
+        transition: transform .2s ease, filter .2s ease;
+    }
+    .customer-service-button:hover,
+    .customer-service-button:focus-visible {
+        color: #fff;
+        transform: translateX(-3px);
+        filter: brightness(1.08);
+        outline: 3px solid rgba(255, 255, 255, .9);
+        outline-offset: 2px;
+    }
+    .customer-service-button.telegram { background: #229ED9; }
+    .customer-service-button.whatsapp { background: #25D366; }
+    .customer-service-icon { width: 22px; height: 22px; object-fit: cover; border-radius: 50%; flex: 0 0 22px; }
+    @media (max-width: 600px) {
+        .customer-service-buttons {
+            top: 78px;
+            right: 10px;
+            width: auto;
+        }
+        .customer-service-button {
+            width: 42px;
+            height: 42px;
+            min-height: 42px;
+            padding: 0;
+            border-radius: 50%;
+            font-size: 0;
+        }
+        .customer-service-icon { width: 24px; height: 24px; flex-basis: 24px; }
+    }
+</style>
+</head>
+<body>
+    <p>Opening MO-Banja iPhone Installment...</p>
+
+<!-- Customer service links: update the Telegram URL here if your channel username differs. -->
+<div class="customer-service-buttons" aria-label="Customer service">
+    <a class="customer-service-button telegram" href="https://t.me/ilendinstallment" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on Telegram">
+        <img class="customer-service-icon" src="telegram-logo.png" alt=""><span>Telegram</span>
+    </a>
+    <a class="customer-service-button whatsapp" href="https://wa.me/message/3S7ZKZBVKDDAM1" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp">
+        <img class="customer-service-icon" src="whatsapp-logo.png" alt=""><span>WhatsApp</span>
+    </a>
+</div>
+</body>
+</html>
